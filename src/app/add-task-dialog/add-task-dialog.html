@@ -1,0 +1,19 @@
+<h2 mat-dialog-title class="dialog-title">Enter task details</h2>
+<form [formGroup]="createTaskForm" (ngSubmit)="submit()" class="form">
+  <div class="form-group">
+    <input type="text" formControlName="title" placeholder="Enter task's title">
+  </div>
+
+  <div class="form-group">
+    <input type="text" formControlName="assignee" placeholder="Enter task assignee">
+  </div>
+
+  <div class="form-group">
+    <input type="text" formControlName="estimation" placeholder="Enter task estimation">
+  </div>
+
+  <div class="actions">
+    <button class="cancel-btn" (click)="close()">Cancel</button>
+    <button class="submit-btn" type="submit" (click)="submit()">Submit</button>
+  </div>
+</form>
