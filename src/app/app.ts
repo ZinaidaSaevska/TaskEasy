@@ -5,11 +5,15 @@ import {AddTaskDialog} from './add-task-dialog/add-task-dialog';
 import {Task} from './Task';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
+import { MatToolbar } from '@angular/material/toolbar';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CdkDropList, CdkDrag, ReactiveFormsModule, MatButton],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CdkDropList, CdkDrag, ReactiveFormsModule, MatButton, MatToolbar, MatIcon, MatCard, MatCardTitle, MatCardContent],
   templateUrl: './app.html',
   standalone: true,
   styleUrl: './app.css'
