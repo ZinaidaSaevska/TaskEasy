@@ -1,4 +1,3 @@
-<h1>Home Page</h1>
 <!--<nav>-->
 <!--  <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>-->
 <!--  <a routerLink="/login">Login</a>-->
@@ -6,4 +5,71 @@
 <!--</nav>-->
 <!--<router-outlet/>-->
 
+<h1>Home Page</h1>
+
 <button (click)="openDialog()">Add Task</button>
+
+<div class="container">
+
+  <div class="column">
+    <h2>To Do</h2>
+
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="tasks"
+      [cdkDropListConnectedTo]="[inProgressList, doneList]"
+      class="todo-tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (task of tasks; track task) {
+        <div class="task-card" cdkDrag>{{ task.title }}
+          <br>Assignee: {{ task.assignee }}<br>
+          Estimation: {{ task.estimation }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="column">
+    <h2>In Progress</h2>
+
+    <div
+      cdkDropList
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="tasksInProgress"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="in-progress-tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (task of tasksInProgress; track task) {
+        <div class="task-card" cdkDrag>{{ task.title }}
+          <br>Assignee: {{ task.assignee }}<br>
+          Estimation: {{ task.estimation }}
+        </div>
+      }
+    </div>
+  </div>
+
+
+  <div class="column">
+    <h2>Done</h2>
+
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="tasksDone"
+      [cdkDropListConnectedTo]="[todoList, inProgressList]"
+      class="done-tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (task of tasksDone; track task) {
+        <div class="task-card" cdkDrag>{{ task.title }}
+          <br>Assignee: {{ task.assignee }}<br>
+          Estimation: {{ task.estimation }}
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
