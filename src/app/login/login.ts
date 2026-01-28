@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/AuthService';
+import {MatButton} from '@angular/material/button';
+import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButton,
+    MatError,
+    MatFormField,
+    MatInput,
+    MatLabel
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -25,6 +32,10 @@ export class Login {
   submit() {
     console.log(this.loginForm.value)
     this.login()
+  }
+
+  isFormValid(fieldName: string): boolean {
+    return this.loginForm.get(fieldName)?.hasError('required') || false
   }
 
   private login() {

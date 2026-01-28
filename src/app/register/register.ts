@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/AuthService';
+import {MatFormField} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatError, MatLabel} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-register',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatError,
+    MatButton
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -32,5 +41,9 @@ export class Register {
     const password = this.registerForm.get("password")?.value
 
     this.auth.register(username, password)
+  }
+
+  isFormValid(fieldName: string): boolean {
+    return this.registerForm.get(fieldName)?.hasError('required') || false
   }
 }
