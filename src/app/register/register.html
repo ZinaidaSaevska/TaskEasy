@@ -1,16 +1,25 @@
 <div class="main-container">
   <div class="form-container">
-    <div class="login-label">Register</div>
-    <form [formGroup]="registerForm" (ngSubmit)="submit()" class="form">
-      <div class="form-group">
-        <input type="text" formControlName="username" placeholder="Enter your username">
-      </div>
+    <div class="register-label">Register</div>
+    <form [formGroup]="registerForm" (ngSubmit)="submit()" class="register-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" placeholder="Enter your username">
 
-      <div class="form-group">
-        <input type="text" formControlName="password" placeholder="Enter your password">
-      </div>
+        @if (!isFormValid('username')) {
+          <mat-error >Username is required</mat-error>
+        }
+      </mat-form-field>
 
-      <button class="submit-btn" type="submit">Submit</button>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" placeholder="Enter your password">
+        @if (!isFormValid('password')) {
+          <mat-error>Password is required</mat-error>
+        }
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Submit</button>
     </form>
   </div>
 </div>

@@ -1,7 +1,90 @@
-<h1>Home Page</h1>
-<nav>
-  <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
-</nav>
+<!--<nav>-->
+<!--  <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>-->
+<!--  <a routerLink="/login">Login</a>-->
+<!--  <a routerLink="/register">Register</a>-->
+<!--</nav>-->
 <router-outlet/>
+
+<mat-toolbar color="primary" xmlns="http://www.w3.org/1999/html">
+  <span>Task Board</span>
+  <span class="spacer"></span>
+  <button mat-raised-button color="accent" (click) = "openDialog()">
+          <mat-icon>add</mat-icon>
+  Add Task</button>
+</mat-toolbar>
+
+<div class="container">
+
+  <div class="column">
+    <h2 class="column-title">To Do</h2>
+
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="tasks"
+      [cdkDropListConnectedTo]="[inProgressList, doneList]"
+      class="todo-tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (task of tasks; track task) {
+        <mat-card class="task-card" cdkDrag>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>
+            <p><strong>Assignee:</strong>{{ task.assignee }}</p>
+            <p><strong>Estimation:</strong>{{ task.estimation }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+  <div class="column">
+    <h2 class="column-title">In Progress</h2>
+
+    <div
+      cdkDropList
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="tasksInProgress"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="in-progress-tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+
+      @for (task of tasksInProgress; track task) {
+        <mat-card class="task-card" cdkDrag>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>
+            <p><strong>Assignee:</strong>{{ task.assignee }}</p>
+            <p><strong>Estimation:</strong>{{ task.estimation }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+
+  <div class="column">
+    <h2 class="column-title">Done</h2>
+
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="tasksDone"
+      [cdkDropListConnectedTo]="[todoList, inProgressList]"
+      class="done-tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+
+      @for (task of tasksDone; track task) {
+        <mat-card class="task-card" cdkDrag>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>
+            <p><strong>Assignee:</strong>{{ task.assignee }}</p>
+            <p><strong>Estimation:</strong>{{ task.estimation }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+</div>
+
