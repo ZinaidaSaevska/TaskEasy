@@ -24,6 +24,7 @@ import {routes} from '../app.routes';
 export class Login {
 
   loginForm: FormGroup
+  showError = false
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
     this.loginForm = this.formBuilder.group({
@@ -41,10 +42,6 @@ export class Login {
     return this.loginForm.get(fieldName)?.hasError('required') || false
   }
 
-  navigateToRegistration() {
-    this.router.navigate(["register"])
-  }
-
   private login() {
     const username = this.loginForm.get("username")?.value || ""
     const password = this.loginForm.get("password")?.value
@@ -53,7 +50,10 @@ export class Login {
 
     if (success) {
       //Navigate to dashboard
+      this.showError = false
       this.router.navigate(["/"])
+    } else {
+      this.showError = true
     }
   }
 }
