@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/AuthService';
 import {MatButton} from '@angular/material/button';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {Router, RouterLink} from '@angular/router';
+import {routes} from '../app.routes';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/inpu
     MatError,
     MatFormField,
     MatInput,
-    MatLabel
+    MatLabel,
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -21,9 +24,10 @@ import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/inpu
 export class Login {
 
   loginForm: FormGroup
+  showError = false
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) {
-    this.loginForm= this.formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
+    this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
@@ -46,9 +50,10 @@ export class Login {
 
     if (success) {
       //Navigate to dashboard
-      console.log("Success")
+      this.showError = false
+      this.router.navigate(["/"])
     } else {
-      console.log("Failure")
+      this.showError = true
     }
   }
 }

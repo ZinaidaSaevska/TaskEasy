@@ -5,6 +5,7 @@ import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ export class Register {
 
   registerForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
     this.registerForm= this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -34,6 +35,7 @@ export class Register {
   submit() {
     console.log(this.registerForm.value)
     this.register()
+    this.router.navigate(["/"])
   }
 
   private register() {
