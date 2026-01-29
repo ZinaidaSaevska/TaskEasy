@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth/AuthService';
 import {MatButton} from '@angular/material/button';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {Router, RouterLink} from '@angular/router';
+import {routes} from '../app.routes';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/inpu
     MatError,
     MatFormField,
     MatInput,
-    MatLabel
+    MatLabel,
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -22,8 +25,8 @@ export class Login {
 
   loginForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) {
-    this.loginForm= this.formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
+    this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
@@ -38,6 +41,10 @@ export class Login {
     return this.loginForm.get(fieldName)?.hasError('required') || false
   }
 
+  navigateToRegistration() {
+    this.router.navigate(["register"])
+  }
+
   private login() {
     const username = this.loginForm.get("username")?.value || ""
     const password = this.loginForm.get("password")?.value
@@ -46,9 +53,7 @@ export class Login {
 
     if (success) {
       //Navigate to dashboard
-      console.log("Success")
-    } else {
-      console.log("Failure")
+      this.router.navigate(["/"])
     }
   }
 }
